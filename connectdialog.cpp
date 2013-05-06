@@ -39,8 +39,8 @@ bool ConnectDialog::send()
     if (LineEdit_Port->validator()->validate(port_str, port) != QValidator::Acceptable)
     {
         QMessageBox::critical(this,
-                              trUtf8("Invalid password"),
-                              trUtf8("Heslo nesmi­ obsahovat mezery a interpunkci a musi­ bzt v rozmezi­ %1-%2 znaku!").arg(8).arg(16));
+                              trUtf8("Invalid port"),
+                              trUtf8("Port musi obsahovat 5­ mistne cislo"));
         LineEdit_Port->setFocus();
         return false;
     }

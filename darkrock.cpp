@@ -43,11 +43,11 @@ void DarkRock::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 }
 
 
-QRectF DarkRock::getPosition() {
+QPointF DarkRock::getPosition() {
     return pos;
 }
 
-void DarkRock::setPosition(QRectF & p) {
+void DarkRock::setPosition(QPointF & p) {
     pos = p;
 }
 

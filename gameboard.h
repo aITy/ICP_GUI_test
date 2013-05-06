@@ -23,9 +23,12 @@ public:
     Canvas * canvas;
     void initGame();
     //QList GameBoard::getinitPositions();
+    QList<QRectF> convertCoords(QList<QPair<int, int> >list);
     QList<QRectF> convertCoords(QList<QPair<QString, int> >list);
     void lightenPossibleMoves(QList<QPair<QString, int> >positions);
+    void lightenPossibleMoves(QList<QPair<int, int> >positions);
     void hidePossibleMoves();
+    void removeRock(QPointF position);
     QString getFilename();
     void setFilename(QString & str);
 private:

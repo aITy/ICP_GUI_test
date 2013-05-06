@@ -22,6 +22,7 @@ protected:
     QString mouse_position;
     QPointF focused_item_pos;
     QString focused_item_type;
+    QString last_move;
 
 };
 

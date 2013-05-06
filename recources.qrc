@@ -7,5 +7,7 @@
         <file>play.png</file>
         <file>rewind.png</file>
         <file>stop.png</file>
+        <file>dark_king.png</file>
+        <file>light_king.png</file>
     </qresource>
 </RCC>

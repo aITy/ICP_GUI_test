@@ -52,17 +52,18 @@ void MainWindow::setupActions() {
         connect(action_Close, SIGNAL(triggered()), this, SLOT(close()));
 }
 
-void MainWindow::createLocalCpu(){
-    GameBoard *game = new GameBoard();
-    games_arr.append(game);
-    QString str = trUtf8("Hra c.") + QString::number(games_arr.count());
-    tabWidget_Games->addTab(game, str);
+void MainWindow::createLocalVs(){
+    //Game *g = new Game(this);
     //QPoint point = game->getItemCenterPos(0,0);
     //QString test = QString::number(point.x()) + QString::number(point.y());
     //lineEdit_Moves->insert(test);
+    GameBoard *b = new GameBoard();
+    games_arr.append(b);
+    QString str = trUtf8("Hra c.") + QString::number(games_arr.count());
+    tabWidget_Games->addTab(b, str);
 }
 
-void MainWindow::createLocalVs() {}
+void MainWindow::createLocalCpu() {}
 
 void MainWindow::createNetGame() {
     ConnectDialog *d = new ConnectDialog();
@@ -126,4 +127,8 @@ void MainWindow::on_tabWidget_Games_tabCloseRequested(int index)
             tabWidget_Games->removeTab(index);
     else
            return;
+}
+
+void MainWindow::addGame(GameBoard * board) {
+    games_arr.append(board);
 }

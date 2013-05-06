@@ -42,11 +42,11 @@ void LightRock::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
 }
 
 
-QRectF LightRock::getPosition() {
+QPointF LightRock::getPosition() {
     return pos;
 }
 
-void LightRock::setPosition(QRectF & p) {
+void LightRock::setPosition(QPointF & p) {
     pos = p;
 }
 

@@ -18,6 +18,7 @@ public:
         return instance;
     }
     static MainWindow * getInstance();
+    void addGame(GameBoard * );
 
 protected:
     void closeEvent(QCloseEvent *);

@@ -8,7 +8,6 @@ HEADERS += mainwindow.h \
     gameboard.h \
     darkrock.h \
     canvas.h \
-    ../share/game.h \
     connectdialog.h
 SOURCES += main.cpp \
     mainwindow.cpp \
@@ -16,7 +15,6 @@ SOURCES += main.cpp \
     gameboard.cpp \
     darkrock.cpp \
     canvas.cpp \
-    ../share/game.cpp \
     connectdialog.cpp
 FORMS += mainwindow.ui \
     board.ui \
@@ -28,4 +26,6 @@ OTHER_FILES += stop.png \
     pause.png \
     light_piece.png \
     forward.png \
-    dark_piece.png
+    dark_piece.png \
+    light_king.png \
+    dark_king.png
