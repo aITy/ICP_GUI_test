@@ -1,6 +1,7 @@
 #include "gameboard.h"
 #include "lightrock.h"
 #include "darkrock.h"
+#include "canvas.h"
 //#include "rock.h"
 #include <QDebug>
 #include <QGraphicsScene>
@@ -11,14 +12,15 @@ GameBoard::GameBoard(QWidget *parent)
 {
     setupUi(this);
 
-    canvas = new QGraphicsScene();
+    canvas = new Canvas(this);
     canvas->setSceneRect(70,65, graphicsView->width(), graphicsView->height());
     graphicsView->setScene(canvas);
     initGame();
 
-    QList <QPair<QString, int> > str;
-    str.append(QPair<QString, int>("a",0));
-    this->lightenPossibleMoves(str);
+    /* TO DO FILENAME */
+
+    //QList <QPair<QString, int> > str;
+    //this->lightenPossibleMoves(str);
 }
 /*
 QList GameBoard::getinitPositions() {
@@ -30,22 +32,18 @@ void GameBoard::initGame(){
         for (int j = 0; j < 8; j++) {
             if (i % 2 == 1) {
                 if (j % 2 == 0) {
-                    DarkRock *pic = new DarkRock();
-                    QGraphicsProxyWidget * widget = canvas->addWidget(pic);
-                    QRectF pos(67.5 + j * 70.0 + 10.0, 67.5 + i * 70.0 + 10.0, 50.0 ,50.0);
-                    widget->setGeometry(pos);
-                    pic->setPosition(pos);
-                    dark_rocks.append(pic);
+                    DarkRock *dark_rock = new DarkRock();
+                    canvas->addItem(dark_rock);
+                    dark_rock->setPos(67.5 + j * 70.0 + 10.0, 67.5 + i * 70.0 + 10.0);
+                    dark_rocks.append(dark_rock);
                 }
             }
             else {
                 if (j % 2 == 1) {
-                    DarkRock *pic = new DarkRock();
-                    QGraphicsProxyWidget * widget = canvas->addWidget(pic);
-                    QRectF pos(67.5 + j * 70.0 + 10.0, 67.5 + i * 70.0 + 10.0, 50.0 ,50.0);
-                    widget->setGeometry(pos);
-                    pic->setPosition(pos);
-                    dark_rocks.append(pic);
+                    DarkRock *dark_rock = new DarkRock();
+                    canvas->addItem(dark_rock);
+                    dark_rock->setPos(67.5 + j * 70.0 + 10.0, 67.5 + i * 70.0 + 10.0);
+                    dark_rocks.append(dark_rock);
                 }
             }
         }
@@ -54,22 +52,18 @@ void GameBoard::initGame(){
         for (int j = 0; j < 8; j++) {
             if (i %2 == 0) {
                 if (j % 2 == 1) {
-                    LightRock *pic = new LightRock();
-                    QGraphicsProxyWidget * widget = canvas->addWidget(pic);
-                    QRectF pos(67.5 + j * 70.0 + 10.0, 70.0 + i * 70.0 + 10.0, 50.0 ,50.0);
-                    widget->setGeometry(pos);
-                    pic->setPosition(pos);
-                    light_rocks.append(pic);
+                    LightRock *light_rock = new LightRock();
+                    canvas->addItem(light_rock);
+                    light_rock->setPos(67.5 + j * 70.0 + 10.0, 70.0 + i * 70.0 + 10.0);
+                    light_rocks.append(light_rock);
                 }
             }
             else {
                 if (j % 2 == 0) {
-                    LightRock *pic = new LightRock();
-                    QGraphicsProxyWidget * widget = canvas->addWidget(pic);
-                    QRectF pos(67.5 + j * 70.0 + 10.0, 70.0 + i * 70.0 + 10.0, 50.0 ,50.0);
-                    widget->setGeometry(pos);
-                    pic->setPosition(pos);
-                    light_rocks.append(pic);
+                    LightRock *light_rock = new LightRock();
+                    canvas->addItem(light_rock);
+                    light_rock->setPos(67.5 + j * 70.0 + 10.0, 70.0 + i * 70.0 + 10.0);
+                    light_rocks.append(light_rock);
                 }
             }
         }
@@ -84,6 +78,9 @@ QList<QRectF> GameBoard::convertCoords(QList<QPair<QString, int> >list) {
         QString str = "abcdefgh";
         QString::ConstIterator iter = str.begin();
         QPair<QString, int> item = list.at(i);
+        QDataStream wtf;
+        wtf << item;
+        qDebug() << wtf;
         while (iter != str.end()) {
             /*
             if (*iter == QChar(item.first)) {
@@ -148,18 +145,18 @@ void GameBoard::lightenPossibleMoves(QList<QPair<QString, int> >positions) {
         QString str = "abcdefgh";
         QString::ConstIterator iter = str.begin();
         QPair<QString, int> item = positions.at(i);
+        QString pos_x = item.first;
+        int pos_y = item.second;
+
         while (iter != str.end()) {
-            /*
-            if (*iter == QChar(item.first)) {
+            if (*iter == QChar(pos_x[0])) {
                 break;
             }
-            */
-            qDebug() << *iter;
             iter++; j++;
         }
-        QLayoutItem *layout_item = gameGridLayout->itemAtPosition(7 - j, item.second);
-        //QWidget * widget = layout_item->widget();
-        //idget->setStyleSheet("background-color: rgba(227, 224, 119, 100)");
+        QLayoutItem *layout_item = gameGridLayout->itemAtPosition(7 - pos_y + 1, j + 1);
+        QWidget * widget = layout_item->widget();
+        widget->setStyleSheet("background-color: rgba(227, 224, 119, 100)");
         possible_moves.append(positions.at(i));
     }
 
@@ -171,14 +168,16 @@ void GameBoard::hidePossibleMoves() {
         QString str = "abcdefgh";
         QString::ConstIterator iter = str.begin();
         QPair<QString, int> item = possible_moves.at(i);
+        QString pos_x = item.first;
+        int pos_y = item.second;
+
         while (iter != str.end()) {
-            /*
-            if (*iter == item.first) {
+            if (*iter == QChar(pos_x[0])) {
                 break;
-            }*/
+            }
             iter++; j++;
         }
-        QLayoutItem *layout_item = gameGridLayout->itemAtPosition(j, 7 - item.second);
+        QLayoutItem *layout_item = gameGridLayout->itemAtPosition(7 - pos_y + 1, j + 1);
         QWidget * widget = layout_item->widget();
         widget->setStyleSheet("background-color: none");
         possible_moves.removeAt(i);

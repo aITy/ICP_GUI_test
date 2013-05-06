@@ -41,6 +41,9 @@
          <height>650</height>
         </size>
        </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(255, 255, 255)</string>
+       </property>
        <property name="frameShape">
         <enum>QFrame::StyledPanel</enum>
        </property>
@@ -61,19 +64,6 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QGroupBox" name="groupBox_2">
-           <property name="maximumSize">
-            <size>
-             <width>16777215</width>
-             <height>215</height>
-            </size>
-           </property>
-           <property name="title">
-            <string>Game tools</string>
-           </property>
-          </widget>
-         </item>
-         <item>
           <widget class="QGroupBox" name="groupBox">
            <property name="maximumSize">
             <size>
@@ -81,9 +71,151 @@
              <height>215</height>
             </size>
            </property>
-           <property name="title">
-            <string>Replay tools</string>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255)</string>
            </property>
+           <property name="title">
+            <string>  Nástroje pro přehrávání</string>
+           </property>
+           <widget class="QPushButton" name="pushButton_Play">
+            <property name="geometry">
+             <rect>
+              <x>80</x>
+              <y>40</y>
+              <width>45</width>
+              <height>60</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: none;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="recources.qrc">
+              <normaloff>:/play.png</normaloff>:/play.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>45</width>
+              <height>60</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton_Stop">
+            <property name="geometry">
+             <rect>
+              <x>30</x>
+              <y>40</y>
+              <width>45</width>
+              <height>60</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border : none;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="recources.qrc">
+              <normaloff>:/stop.png</normaloff>:/stop.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>45</width>
+              <height>60</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton_Pause">
+            <property name="geometry">
+             <rect>
+              <x>50</x>
+              <y>110</y>
+              <width>40</width>
+              <height>60</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);
+border: none;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="recources.qrc">
+              <normaloff>:/pause.png</normaloff>:/pause.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>50</width>
+              <height>60</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton_Forward">
+            <property name="geometry">
+             <rect>
+              <x>90</x>
+              <y>110</y>
+              <width>60</width>
+              <height>61</height>
+             </rect>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);
+border: none;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="recources.qrc">
+              <normaloff>:/forward.png</normaloff>:/forward.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>60</width>
+              <height>60</height>
+             </size>
+            </property>
+           </widget>
+           <widget class="QPushButton" name="pushButton_Rewind">
+            <property name="geometry">
+             <rect>
+              <x>1</x>
+              <y>114</y>
+              <width>52</width>
+              <height>51</height>
+             </rect>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">background-color: rgb(255, 255, 255);
+border: none;</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="icon">
+             <iconset resource="recources.qrc">
+              <normaloff>:/rewind.png</normaloff>:/rewind.png</iconset>
+            </property>
+            <property name="iconSize">
+             <size>
+              <width>54</width>
+              <height>57</height>
+             </size>
+            </property>
+           </widget>
           </widget>
          </item>
          <item>
@@ -94,8 +226,28 @@
              <height>215</height>
             </size>
            </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255);
+border: none;</string>
+           </property>
            <property name="title">
-            <string>others ... ?</string>
+            <string>        Nástroje pro hru</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>215</height>
+            </size>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">background-color: rgb(255, 255, 255)</string>
+           </property>
+           <property name="title">
+            <string/>
            </property>
           </widget>
          </item>
@@ -138,8 +290,14 @@
           <height>630</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
         <property name="currentIndex">
          <number>-1</number>
+        </property>
+        <property name="tabsClosable">
+         <bool>true</bool>
         </property>
        </widget>
       </widget>
@@ -179,6 +337,10 @@
           <height>650</height>
          </size>
         </property>
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(255, 255, 255);
+border: none;</string>
+        </property>
         <property name="title">
          <string>Moves</string>
         </property>
@@ -193,6 +355,10 @@
            <width>191</width>
            <height>631</height>
           </rect>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(255, 255, 255);
+border: none;</string>
          </property>
         </widget>
        </widget>
@@ -225,6 +391,7 @@
     </property>
     <addaction name="action_LocalLabel"/>
     <addaction name="action_NewLocalGame"/>
+    <addaction name="action_NewLocalGameVs"/>
     <addaction name="separator"/>
     <addaction name="action_NetLabel"/>
     <addaction name="action_NewNetGame"/>
@@ -291,14 +458,14 @@
     </font>
    </property>
   </action>
-  <action name="action_NewNetGame">
+  <action name="action_NewLocalGame">
    <property name="text">
     <string>Nová hra proti CPU</string>
    </property>
   </action>
-  <action name="action_NewLocalGame">
+  <action name="action_NewNetGame">
    <property name="text">
-    <string>Nová hra proti hráči</string>
+    <string>Založit hru proti hráči</string>
    </property>
   </action>
   <action name="action_DisconnectGame">
@@ -306,8 +473,15 @@
     <string>Odpojit aktuální hru</string>
    </property>
   </action>
+  <action name="action_NewLocalGameVs">
+   <property name="text">
+    <string>Nová hra proti hráči</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="recources.qrc"/>
+ </resources>
  <connections/>
 </ui>

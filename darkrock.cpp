@@ -4,27 +4,45 @@
 
 #include <QDebug>
 
-DarkRock::DarkRock(QWidget *parent)
-        : QWidget(parent)
+DarkRock::DarkRock()
 {
+    /*
     this->resize(50, 50);
     this->setStyleSheet("background-image: url(:/dark_piece.png)");
+    */
+    Pressed = false;
+    setFlag(ItemIsMovable);
 }
 
 DarkRock::~DarkRock() {
 
 }
-/*
-void DarkRock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *){}
 
-
-void DarkRock::drawBackground(QPainter * painter, const QRectF &rect) {
-    qDebug() << "CALLED";
-    QRectF r;
-    r.setRect(0,0, img.width(), img.height());
-    painter->drawImage(r, img);
+QRectF DarkRock::boundingRect() const {
+    return QRectF(pos.x(), pos.y(), 50, 50);
 }
-*/
+
+void DarkRock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *){
+    QRectF rect = boundingRect();
+    QRectF src(0.0, 0.0, 50.0, 50.0);
+    QImage img(":/dark_piece.png");
+
+    painter->drawImage(rect, img, src);
+}
+
+void DarkRock::mousePressEvent(QGraphicsSceneMouseEvent * event) {
+    Pressed = true;
+    update();
+    QGraphicsItem::mousePressEvent(event);
+}
+
+void DarkRock::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
+    Pressed = false;
+    update();
+    QGraphicsItem::mouseReleaseEvent(event);
+}
+
+
 QRectF DarkRock::getPosition() {
     return pos;
 }
@@ -32,14 +50,4 @@ QRectF DarkRock::getPosition() {
 void DarkRock::setPosition(QRectF & p) {
     pos = p;
 }
-/*
-QRectF DarkRock::boundingRect() const {
-    return QRectF(0,0, img.width(), img.height());
-}
 
-void DarkRock::paintEvent(QPaintEvent * event) {
-    Q_UNUSED(event);
-    QPainter p(this);
-    drawBackground(&p, QRectF(0,0, img.width(), img.height()));
-}
-*/

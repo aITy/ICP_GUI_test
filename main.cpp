@@ -1,11 +1,22 @@
-#include <QtGui/QApplication>
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ *
+ * Desc: Main file covering the whole CLI version of draughts game.
+ */
+
+//#include <QtCore>
+#include <QtCore/QCoreApplication>
 #include "mainwindow.h"
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    a.setApplicationName("Draughts_2013");
-    MainWindow w;
-    w.show();
-    return a.exec();
+int main(int argc, char *argv[]) {
+  //QApplication();
+  QApplication app(argc, argv);
+
+  // all the following signal-slot handling is essential - see
+  // http://stackoverflow.com/questions/4180394/how-do-i-create-a-simple-qt-console-application-in-c#comment4516692_4180485
+  MainWindow m;
+  m.show();
+
+  return app.exec();
 }

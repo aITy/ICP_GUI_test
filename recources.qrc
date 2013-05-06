@@ -1,6 +1,11 @@
 <RCC>
     <qresource prefix="/">
         <file>dark_piece.png</file>
+        <file>forward.png</file>
         <file>light_piece.png</file>
+        <file>pause.png</file>
+        <file>play.png</file>
+        <file>rewind.png</file>
+        <file>stop.png</file>
     </qresource>
 </RCC>

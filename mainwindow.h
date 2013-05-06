@@ -8,6 +8,7 @@
 
 
 class GameBoard;
+class ConnectDialog;
 
 class MainWindow : public QMainWindow, Ui::MainWindow {
     Q_OBJECT
@@ -27,11 +28,16 @@ private:
     QList<GameBoard*> games_arr;
     static MainWindow* instance;
 private slots:
-    void createNew();
+    void createLocalCpu();
+    void createLocalVs();
+    void createNetGame();
     void OpenFromFile();
-    void save();
-    void saveAs();
+    bool save();
+    bool saveAs();
+    bool saveAs(QString &);
     void close();
+    void on_tabWidget_Games_tabCloseRequested(int index);
+
 };
 
 #endif // MAINWINDOW_H

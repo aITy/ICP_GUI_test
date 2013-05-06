@@ -10,6 +10,7 @@
 
 class DarkRock;
 class LightRock;
+class Canvas;
 
 class GameBoard : public QWidget, Ui::Form_Board
 {
@@ -19,16 +20,19 @@ public:
     ~GameBoard();
     QPoint getItemCenterPos(int, int);
     void changeItemContent(int, int);
-    QGraphicsScene * canvas;
+    Canvas * canvas;
     void initGame();
     //QList GameBoard::getinitPositions();
     QList<QRectF> convertCoords(QList<QPair<QString, int> >list);
     void lightenPossibleMoves(QList<QPair<QString, int> >positions);
     void hidePossibleMoves();
+    QString getFilename();
+    void setFilename(QString & str);
 private:
     QList <DarkRock *> dark_rocks;
     QList <LightRock *> light_rocks;
     QList <QPair<QString, int> > possible_moves;
+    QString filename;
 };
 
 #endif // GAMEBOARD_H
