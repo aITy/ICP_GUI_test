@@ -11,6 +11,7 @@ DarkRock::DarkRock()
     this->setStyleSheet("background-image: url(:/dark_piece.png)");
     */
     Pressed = false;
+    king = false;
     setFlag(ItemIsMovable);
 }
 
@@ -25,7 +26,11 @@ QRectF DarkRock::boundingRect() const {
 void DarkRock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *){
     QRectF rect = boundingRect();
     QRectF src(0.0, 0.0, 50.0, 50.0);
-    QImage img(":/dark_piece.png");
+    QImage img;
+    if (!king)
+        img = QImage(":/dark_piece.png");
+    else
+        img = QImage(":/dark_king.png");
 
     painter->drawImage(rect, img, src);
 }
@@ -47,7 +52,11 @@ QPointF DarkRock::getPosition() {
     return pos;
 }
 
-void DarkRock::setPosition(QPointF & p) {
+void DarkRock::setPosition(QPointF p) {
     pos = p;
 }
 
+void DarkRock::becomeKing() {
+    king = true;
+    this->update();
+}

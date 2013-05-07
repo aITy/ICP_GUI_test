@@ -23,14 +23,16 @@ public:
     Canvas * canvas;
     void initGame();
     //QList GameBoard::getinitPositions();
-    QList<QRectF> convertCoords(QList<QPair<int, int> >list);
-    QList<QRectF> convertCoords(QList<QPair<QString, int> >list);
-    void lightenPossibleMoves(QList<QPair<QString, int> >positions);
-    void lightenPossibleMoves(QList<QPair<int, int> >positions);
+    QList<QRectF> convertCoords(QList<QPair<int, int> > );
+    QList<QRectF> convertCoords(QList<QPair<QString, int> > );
+    QList<QPair<int, int> > convertCoords(QList<QPointF> );
+    QList<QPair<QString, int> > convertCoords(QList<QPointF>, QString );
+    void lightenPossibleMoves(QList<QPair<QString, int> >);
+    void lightenPossibleMoves(QList<QPair<int, int> >);
     void hidePossibleMoves();
-    void removeRock(QPointF position);
+    void removeRock(QPointF );
     QString getFilename();
-    void setFilename(QString & str);
+    void setFilename(QString & );
 private:
     QList <DarkRock *> dark_rocks;
     QList <LightRock *> light_rocks;

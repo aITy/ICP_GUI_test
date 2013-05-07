@@ -9,6 +9,8 @@
 #include <QWidget>
 #include <QMessageBox>
 #include <QDesktopServices>
+#include <QStatusBar>
+#include <QDebug>
 
 MainWindow* MainWindow::instance = NULL;
 
@@ -56,7 +58,6 @@ void MainWindow::createLocalVs(){
     //Game *g = new Game(this);
     //QPoint point = game->getItemCenterPos(0,0);
     //QString test = QString::number(point.x()) + QString::number(point.y());
-    //lineEdit_Moves->insert(test);
     GameBoard *b = new GameBoard();
     games_arr.append(b);
     QString str = trUtf8("Hra c.") + QString::number(games_arr.count());
@@ -131,4 +132,42 @@ void MainWindow::on_tabWidget_Games_tabCloseRequested(int index)
 
 void MainWindow::addGame(GameBoard * board) {
     games_arr.append(board);
+}
+
+void MainWindow::setStatusMsg(const char * str) {
+    myStatusBar->showMessage(QString(str), 2500);
+}
+
+void MainWindow::addMove(QPair<QString, int> src, QPair<QString, int> dest, QString type) {
+    QString text = lineEdit_Moves->toPlainText();
+    QString message = "";
+    QPair<QPair< QPair<QString,int>, QPair<QString,int> > , QString> move;
+    int i = 0;
+    int counter = 0;
+    while (i != text.length()) {
+        if (text[i] == '\n')
+            counter++;
+        i++;
+    }
+    if (moves.count()%2 == 0)
+        message += QString("%1. ").arg(QString::number(counter + 1));
+    message += QString("%1%2").arg(QString(src.first)).arg(QString::number(src.second));
+    if (type == "MOVE")
+        message += " ";
+    else
+        message += "x";
+    message += QString("%1%2").arg(QString(dest.first)).arg(QString::number(dest.second));
+    if (moves.count()%2 == 0)
+        message += "\t";
+    else
+        message += "\n";
+    lineEdit_Moves->insertPlainText(message);
+    move.first = QPair<QPair<QString, int>, QPair<QString,int> >(src, dest);
+    move.second = QString(type);
+    moves.append(move);
+}
+
+void MainWindow::clearMoves() {
+    moves.clear();
+    lineEdit_Moves->clear();
 }

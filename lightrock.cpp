@@ -9,8 +9,9 @@ LightRock::LightRock()
     this->resize(50, 50);
     this->setStyleSheet("background-image: url(:/dark_piece.png)");
     */
-    Pressed = false;
     setFlag(ItemIsMovable);
+    Pressed = false;
+    king = false;
 }
 
 LightRock::~LightRock() {
@@ -24,7 +25,11 @@ QRectF LightRock::boundingRect() const {
 void LightRock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *){
     QRectF rect = boundingRect();
     QRectF src(0.0, 0.0, 50.0, 50.0);
-    QImage img(":/light_piece.png");
+    QImage img;
+    if (!king)
+        img = QImage(":/light_piece.png");
+    else
+        img = QImage(":/light_king.png");
 
     painter->drawImage(rect, img, src);
 }
@@ -41,12 +46,15 @@ void LightRock::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
     QGraphicsItem::mouseReleaseEvent(event);
 }
 
-
 QPointF LightRock::getPosition() {
     return pos;
 }
 
-void LightRock::setPosition(QPointF & p) {
+void LightRock::setPosition(QPointF p) {
     pos = p;
 }
 
+void LightRock::becomeKing() {
+    king = true;
+    this->update();
+}

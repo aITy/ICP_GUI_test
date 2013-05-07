@@ -12,12 +12,14 @@ public:
     DarkRock();
     ~DarkRock();
     QPointF getPosition();
-    void setPosition(QPointF & p);
+    void setPosition(QPointF p);
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget * widget);
+    void becomeKing();
     bool Pressed;
 private:
     QPointF pos;
+    bool king;
 protected:
     /*
     void paintEvent(QPaintEvent *pe) {

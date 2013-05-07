@@ -19,6 +19,9 @@ public:
     }
     static MainWindow * getInstance();
     void addGame(GameBoard * );
+    void setStatusMsg(const char *);
+    void addMove(QPair<QString, int> src, QPair<QString, int> dest, QString type);
+    void clearMoves();
 
 protected:
     void closeEvent(QCloseEvent *);
@@ -26,6 +29,7 @@ protected:
 private:
     void setupActions();
 
+    QList< QPair< QPair<QPair<QString, int>, QPair<QString, int> >, QString> > moves;
     QList<GameBoard*> games_arr;
     static MainWindow* instance;
 private slots:

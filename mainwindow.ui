@@ -344,7 +344,7 @@ border: none;</string>
         <property name="title">
          <string>Moves</string>
         </property>
-        <widget class="QLineEdit" name="lineEdit_Moves">
+        <widget class="QTextEdit" name="lineEdit_Moves">
          <property name="enabled">
           <bool>false</bool>
          </property>
@@ -356,9 +356,19 @@ border: none;</string>
            <height>631</height>
           </rect>
          </property>
+         <property name="font">
+          <font>
+           <family>Calibri</family>
+           <pointsize>11</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+           <stylestrategy>PreferAntialias</stylestrategy>
+          </font>
+         </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(255, 255, 255);
-border: none;</string>
+border: none;
+padding-left: 20px;</string>
          </property>
         </widget>
        </widget>
@@ -415,7 +425,7 @@ border: none;</string>
     <bool>false</bool>
    </attribute>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QStatusBar" name="myStatusBar"/>
   <action name="action_Open">
    <property name="text">
     <string>Otevřít</string>

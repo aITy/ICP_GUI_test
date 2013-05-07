@@ -28,6 +28,7 @@ QList GameBoard::getinitPositions() {
 }
 */
 void GameBoard::initGame(){
+
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 8; j++) {
             if (i % 2 == 1) {
@@ -68,19 +69,26 @@ void GameBoard::initGame(){
             }
         }
     }
+    /*
+    qDebug() << dark_rocks.at(0)->scenePos();
+    QList<QPointF>list;
+    list.append(dark_rocks.at(0)->scenePos());
+    QList<QPair<QString,int> > ret = convertCoords(list, QString("output"));
+    qDebug() << ret;*/
+
 }
 
 void GameBoard::removeRock(QPointF position) {
     QPointF rock_pos;
     for (int i = 0; i < light_rocks.size(); i++) {
-        rock_pos = light_rocks.at(i)->getPosition();
+        rock_pos = light_rocks.at(i)->scenePos();
         if (rock_pos.x() == position.x() && rock_pos.y() == position.y()) {
             light_rocks.removeAt(i);
             return;
         }
     }
     for (int i = 0; i < dark_rocks.size(); i++) {
-        rock_pos = dark_rocks.at(i)->getPosition();
+        rock_pos = dark_rocks.at(i)->scenePos();
         if (rock_pos.x() == position.x() && rock_pos.y() == position.y()) {
             dark_rocks.removeAt(i);
             return;
@@ -94,7 +102,41 @@ QList<QRectF> GameBoard::convertCoords(QList<QPair<int, int> >list) {
     for (int i = 0; i < list.size(); i++) {
         QPair<int, int> item = list.at(i);
         QLayoutItem *layout_item = gameGridLayout->itemAtPosition(7 - item.second + 1, item.first + 1);
-        ret.append(QRectF(layout_item->geometry().x(), layout_item->geometry().y(), 70, 70));
+        ret.append(QRectF(layout_item->geometry().x(), layout_item->geometry().y(), 50, 50));
+    }
+    return ret;
+}
+
+ QList<QPair<int,int> >GameBoard::convertCoords(QList<QPointF> list) {
+
+    QList<QPair<int,int> > ret;
+    for (int i = 0; i < list.size(); i++) {
+        QPointF pos = list.at(i);
+        int x = (pos.x() - 10 - 67.5)/70;
+        int y = (pos.y() - 10 - 67.5)/70;
+
+        ret.append(QPair<int,int>(x,7 - y));
+    }
+    return ret;
+}
+
+ QList<QPair<QString,int> >GameBoard::convertCoords(QList<QPointF> list, QString str) {
+
+    QList<QPair<QString,int> > ret;
+    QString chars = "abcdefgh";
+    QString ch;
+    for (int i = 0; i < list.size(); i++) {
+        QPointF pos = list.at(i);
+        int x = (pos.x() - 10 - 67.5)/70;
+        int y = (pos.y() - 10 - 67.5)/70;
+
+        for (int j = 0; j <= x; j++) {
+            ch = QString(chars[j]);
+        }
+        if (str == "output")
+            ret.append(QPair<QString, int>(ch,8 - y));
+        else
+            ret.append(QPair<QString, int>(ch,8 - y));
     }
     return ret;
 }
@@ -107,11 +149,9 @@ QList<QRectF> GameBoard::convertCoords(QList<QPair<QString, int> >list) {
         QString str = "abcdefgh";
         QString::ConstIterator iter = str.begin();
         QPair<QString, int> item = list.at(i);
-        QString pos_x = item.first;
-        int pos_y = item.second;
 
         while (iter != str.end()) {
-            if (*iter == QChar(pos_x[0])) {
+            if (*iter == QChar(item.first[0])) {
                 break;
             }
             iter++; j++;

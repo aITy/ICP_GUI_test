@@ -23,6 +23,8 @@ protected:
     QPointF focused_item_pos;
     QString focused_item_type;
     QString last_move;
+signals:
+
 
 };
 
