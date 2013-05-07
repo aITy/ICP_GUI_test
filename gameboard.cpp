@@ -6,6 +6,7 @@
 #include <QDebug>
 #include <QGraphicsScene>
 #include <QGraphicsProxyWidget>
+#include <QMessageBox>
 
 GameBoard::GameBoard(QWidget *parent)
         : QWidget(parent)
@@ -84,6 +85,10 @@ void GameBoard::removeRock(QPointF position) {
         rock_pos = light_rocks.at(i)->scenePos();
         if (rock_pos.x() == position.x() && rock_pos.y() == position.y()) {
             light_rocks.removeAt(i);
+            if (light_rocks.count() == 0) {
+                // black player win
+                QMessageBox::information(this, "Black player won", "Cerny hrac vyhral!");
+            }
             return;
         }
     }
@@ -91,6 +96,10 @@ void GameBoard::removeRock(QPointF position) {
         rock_pos = dark_rocks.at(i)->scenePos();
         if (rock_pos.x() == position.x() && rock_pos.y() == position.y()) {
             dark_rocks.removeAt(i);
+            if (dark_rocks.count() == 0) {
+                // black player win
+                QMessageBox::information(this, "White player won", "Bily hrac vyhral!");
+            }
             return;
         }
     }
