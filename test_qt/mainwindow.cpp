@@ -49,7 +49,7 @@ void MainWindow::setupActions() {
         // connects
         connect(action_NewLocalGame, SIGNAL(triggered()), this, SLOT(createLocalCpu()));
         connect(action_NewLocalGameVs, SIGNAL(triggered()), this, SLOT(createLocalVs()));
-        connect(action_NewNetGame, SIGNAL(triggered()), this, SLOT(createNetGame()));
+        //connect(action_NewNetGame, SIGNAL(triggered()), this, SLOT(createNetGame()));
         connect(action_Open, SIGNAL(triggered()), this, SLOT(openFromFile()));
         connect(action_OpenReplay, SIGNAL(triggered()), this, SLOT(openReplayFromFile()));
         connect(action_SaveIcp, SIGNAL(triggered()), this, SLOT(saveIcp()));
@@ -57,6 +57,9 @@ void MainWindow::setupActions() {
         connect(action_Help, SIGNAL(triggered()), this, SLOT(help()));
 }
 
+/**
+ * Create local game player vs player
+ */
 void MainWindow::createLocalVs(){
     Game *g = new Game(server);
     g->gameLocal();
@@ -75,11 +78,17 @@ void MainWindow::createLocalVs(){
     }
 }
 
+/**
+ * Create local game player vs cpu
+ */
 void MainWindow::createLocalCpu() {
     Game *g = new Game(server);
     //g->gameLocal(true, true);
 }
 
+/**
+ * Create network game player vs player
+ */
 void MainWindow::createNetGame() {
     d = new ConnectDialog();
     connect(d, SIGNAL(accepted()), this, SLOT(newNetworkGame()));
@@ -87,6 +96,9 @@ void MainWindow::createNetGame() {
 
 }
 
+/**
+ * Open game from file via standard OS open dialog
+ */
 void MainWindow::openFromFile(){
     QFileDialog openDialog(this);
     QString filename = openDialog.getOpenFileName(this, trUtf8("Open game from file"), "", "XML | ICP files(*.xml *.*)");
@@ -107,7 +119,9 @@ void MainWindow::openFromFile(){
     }
 
 }
-
+/**
+ * Open replay file via standard OS open dialog
+ */
 void MainWindow::openReplayFromFile() {
     QFileDialog openDialog(this);
     QString filename = openDialog.getOpenFileName(this, trUtf8("Open replay from file"), "", "XML files(*.xml)");
@@ -132,6 +146,9 @@ void MainWindow::openReplayFromFile() {
 
 }
 
+/**
+ * Save game to file with icp syntax
+ */
 bool MainWindow::saveIcp() {
     QString fn = QFileDialog::getSaveFileName(NULL,
                                    trUtf8("Ulozit jako ICP syntax"),
@@ -153,6 +170,9 @@ bool MainWindow::saveIcp() {
     return false;
 }
 
+/**
+ * Save game to file with xml syntax
+ */
 bool MainWindow::saveXml() {
     QString fn = QFileDialog::getSaveFileName(NULL,
                                    trUtf8("Ulozit jako XML"),
@@ -174,6 +194,9 @@ bool MainWindow::saveXml() {
     return false;
 }
 
+/**
+ * Close tab with running game and warning user before closing
+ */
 void MainWindow::on_tabWidget_Games_tabCloseRequested(int index)
 {
     QMessageBox::StandardButton choice;
@@ -189,6 +212,9 @@ void MainWindow::on_tabWidget_Games_tabCloseRequested(int index)
            return;
 }
 
+/**
+ * Add new tab and new game
+ */
 void MainWindow::addGame(GameBoard * board) {
     games_arr.append(board);
     moves_str.append(QPair<GameBoard*, QString>(board, lineEdit_Moves->toPlainText()));
@@ -197,15 +223,24 @@ void MainWindow::addGame(GameBoard * board) {
     tabWidget_Games->setCurrentIndex(tabWidget_Games->count() - 1);
 }
 
+/**
+ * Set status mesage for 2,5s
+ */
 void MainWindow::setStatusMsg(const char * str) {
     myStatusBar->showMessage(QString(str), 2500);
 }
 
+/**
+ * Overloaded Set status mesage for 2,5s
+ */
 void MainWindow::setStatusMsg(QString str) {
     myStatusBar->showMessage(str, 2500);
 }
 
-
+/**
+ * Set moves record to right menu
+ * @param Recorded moves
+ */
 void MainWindow::setLineEditText(QString str) {
     lineEdit_Moves->setPlainText(str);
 }
@@ -227,10 +262,17 @@ void MainWindow::on_tabWidget_Games_currentChanged(int index)
     }
 }
 
+/**
+ * Return number of running games
+ * @return number of running games
+ */
 int MainWindow::getGamesCount() {
     return games_arr.count();
 }
 
+/**
+ * Stop replaying
+ */
 void MainWindow::on_pushButton_Stop_clicked()
 {
     GameBoard * b = games_arr.at(tabWidget_Games->currentIndex());
@@ -238,6 +280,9 @@ void MainWindow::on_pushButton_Stop_clicked()
     g->replayMoveStop();
 }
 
+/**
+ * toggle replaying
+ */
 void MainWindow::on_pushButton_Play_clicked()
 {
     GameBoard * b = games_arr.at(tabWidget_Games->currentIndex());
@@ -247,6 +292,9 @@ void MainWindow::on_pushButton_Play_clicked()
     g->replayMoveToggle();
 }
 
+/**
+ * Rewind replaying
+ */
 void MainWindow::on_pushButton_Rewind_clicked()
 {
     GameBoard * b = games_arr.at(tabWidget_Games->currentIndex());
@@ -255,6 +303,9 @@ void MainWindow::on_pushButton_Rewind_clicked()
     g->replayMove(step, false);
 }
 
+/**
+ * Pause replaying
+ */
 void MainWindow::on_pushButton_Pause_clicked()
 {
     GameBoard * b = games_arr.at(tabWidget_Games->currentIndex());
@@ -264,6 +315,9 @@ void MainWindow::on_pushButton_Pause_clicked()
     g->replayMoveToggle();
 }
 
+/**
+ * Forward replaying
+ */
 void MainWindow::on_pushButton_Forward_clicked()
 {
     GameBoard * b = games_arr.at(tabWidget_Games->currentIndex());
@@ -272,6 +326,9 @@ void MainWindow::on_pushButton_Forward_clicked()
     g->replayMove(step, true);
 }
 
+/**
+ * Change speed of replaying
+ */
 void MainWindow::on_spinBox_Delay_valueChanged(int)
 {
     GameBoard * b = games_arr.at(tabWidget_Games->currentIndex());
@@ -281,6 +338,10 @@ void MainWindow::on_spinBox_Delay_valueChanged(int)
 
 }
 
+/**
+ * Enable replaying buttons
+ * @param Instation of game
+ */
 void MainWindow::toggleReplayButtons(Game * g) {
     bool flag = g->isReplaying();
     pushButton_Stop->setEnabled(flag);
@@ -292,10 +353,17 @@ void MainWindow::toggleReplayButtons(Game * g) {
     spinBox_MovesCount->setEnabled(flag);
 }
 
+/**
+ * Show help dialog
+ */
 void MainWindow::help() {
     Help * dialog = new Help();
     dialog->show();
 }
+
+/**
+ * Process invitation to new network game
+ */
 
 void MainWindow::gotConnection() {
     if (server->hasPendingConnections()) {
@@ -309,15 +377,28 @@ void MainWindow::gotConnection() {
     }
 }
 
+/**
+ * Inform user about new invitation to network game
+ * @param Player::color_t Player color
+ */
+
 void MainWindow::gotInviteSlot(Player::color_t, QString) {
     AcceptDialog * dialog = new AcceptDialog();
     connect(dialog, SIGNAL(accepted()), this, SLOT(invited()));
     dialog->exec();
 }
 
+/**
+ * Set status message to inform user about disconnected from game
+ */
+
 void MainWindow::gotExitSlot() {
     setStatusMsg("disconnected from game");
 }
+
+/**
+ * Create new network game
+ */
 
 void MainWindow::newNetworkGame() {
     Game * g = new Game(server);
@@ -328,4 +409,8 @@ void MainWindow::newNetworkGame() {
     if ( !g->gameRemote(addr, d->dialogInfo.at(2).toInt(), Player::COLOR_WHITE)) {
         setStatusMsg(g->getError());
     }
+}
+
+void MainWindow::invited() {
+
 }

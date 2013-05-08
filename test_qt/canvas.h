@@ -20,7 +20,6 @@ protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
-
     QString mouse_position;
     QPointF focused_item_pos;
     QString focused_item_type;

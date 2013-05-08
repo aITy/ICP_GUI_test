@@ -46,7 +46,7 @@ bool ConnectDialog::send()
 void ConnectDialog::on_button_Send_clicked()
 {
     if (send()) {
-        this->accept();
+        QDialog::accept();
     }
 }
 
