@@ -316,25 +316,7 @@ void GameBoard::lightenPossibleMoves(QList<QPair<int, int> >positions) {
 }
 
 void GameBoard::hidePossibleMoves() {
-    /*for (int i = 0; i < possible_moves.size(); i++) {
-        int j = 0;
-        QString str = "abcdefgh";
-        QString::ConstIterator iter = str.begin();
-        QPair<QString, int> item = possible_moves.at(i);
-        QString pos_x = item.first;
-        int pos_y = item.second;
 
-        while (iter != str.end()) {
-            if (*iter == QChar(pos_x[0])) {
-                break;
-            }
-            iter++; j++;
-        }
-        QLayoutItem *layout_item = gameGridLayout->itemAtPosition(7 - pos_y + 1, j + 1);
-        QWidget * widget = layout_item->widget();
-        widget->setStyleSheet("background-color:rgb(0, 0, 0)");
-        possible_moves.removeAt(i);
-    }*/
     for (int i = 0; i < gameGridLayout->rowCount(); i++) {
         for (int j = 0; j < gameGridLayout->columnCount(); j++) {
             if (game->isBlackBox(i + 1, j + 1)) {
@@ -416,7 +398,7 @@ void GameBoard::refresh() {
                     debug_str += "nothing\t";
                 }
             }
-            qDebug() << debug_str;
+            //qDebug() << debug_str;
             debug_str = "";
         }
         lineedit_moves = game->getIcpSyntaxStr(false);
