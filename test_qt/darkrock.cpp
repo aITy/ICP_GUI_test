@@ -60,3 +60,7 @@ void DarkRock::becomeKing() {
     king = true;
     this->update();
 }
+
+bool DarkRock::isKing() {
+    return king;
+}

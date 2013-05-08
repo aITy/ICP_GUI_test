@@ -11,12 +11,11 @@ class ConnectDialog : public QDialog, private Ui::connectDialog
 public:
     explicit ConnectDialog(QWidget *parent = 0);
     QStringList dialogInfo;
-
-public slots:
-    void accept();
-
 private:
     bool send();
+
+private slots:
+    void on_button_Send_clicked();
 };
 
 

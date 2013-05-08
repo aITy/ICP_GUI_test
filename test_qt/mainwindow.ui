@@ -65,10 +65,16 @@
          </property>
          <item>
           <widget class="QGroupBox" name="groupBox">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>250</height>
+            </size>
+           </property>
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>215</height>
+             <height>240</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -78,6 +84,9 @@
             <string>  Nástroje pro přehrávání</string>
            </property>
            <widget class="QPushButton" name="pushButton_Play">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="geometry">
              <rect>
               <x>80</x>
@@ -104,6 +113,9 @@
             </property>
            </widget>
            <widget class="QPushButton" name="pushButton_Stop">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="geometry">
              <rect>
               <x>30</x>
@@ -130,6 +142,9 @@
             </property>
            </widget>
            <widget class="QPushButton" name="pushButton_Pause">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="geometry">
              <rect>
               <x>50</x>
@@ -157,6 +172,9 @@ border: none;</string>
             </property>
            </widget>
            <widget class="QPushButton" name="pushButton_Forward">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="geometry">
              <rect>
               <x>90</x>
@@ -184,6 +202,9 @@ border: none;</string>
             </property>
            </widget>
            <widget class="QPushButton" name="pushButton_Rewind">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
             <property name="geometry">
              <rect>
               <x>1</x>
@@ -214,6 +235,76 @@ border: none;</string>
               <width>54</width>
               <height>57</height>
              </size>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="spinBox_Delay">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="geometry">
+             <rect>
+              <x>100</x>
+              <y>180</y>
+              <width>51</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <number>100</number>
+            </property>
+            <property name="maximum">
+             <number>32000</number>
+            </property>
+            <property name="value">
+             <number>600</number>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label">
+            <property name="geometry">
+             <rect>
+              <x>4</x>
+              <y>180</y>
+              <width>91</width>
+              <height>20</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>čas mezi tahy [ms]</string>
+            </property>
+           </widget>
+           <widget class="QSpinBox" name="spinBox_MovesCount">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="geometry">
+             <rect>
+              <x>100</x>
+              <y>210</y>
+              <width>51</width>
+              <height>22</height>
+             </rect>
+            </property>
+            <property name="minimum">
+             <number>1</number>
+            </property>
+            <property name="maximum">
+             <number>32000</number>
+            </property>
+            <property name="value">
+             <number>1</number>
+            </property>
+           </widget>
+           <widget class="QLabel" name="label_2">
+            <property name="geometry">
+             <rect>
+              <x>5</x>
+              <y>213</y>
+              <width>91</width>
+              <height>16</height>
+             </rect>
+            </property>
+            <property name="text">
+             <string>skočit o počet tahů.</string>
             </property>
            </widget>
           </widget>
@@ -370,6 +461,15 @@ border: none;</string>
 border: none;
 padding-left: 20px;</string>
          </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="tabChangesFocus">
+          <bool>true</bool>
+         </property>
+         <property name="overwriteMode">
+          <bool>true</bool>
+         </property>
         </widget>
        </widget>
       </widget>
@@ -391,9 +491,10 @@ padding-left: 20px;</string>
      <string>Soubor</string>
     </property>
     <addaction name="action_Open"/>
-    <addaction name="action_Save"/>
-    <addaction name="action_SaveAs"/>
-    <addaction name="action_Close"/>
+    <addaction name="action_OpenReplay"/>
+    <addaction name="action_SaveIcp"/>
+    <addaction name="action_SaveXml"/>
+    <addaction name="action_Help"/>
    </widget>
    <widget class="QMenu" name="menuHra">
     <property name="title">
@@ -405,17 +506,10 @@ padding-left: 20px;</string>
     <addaction name="separator"/>
     <addaction name="action_NetLabel"/>
     <addaction name="action_NewNetGame"/>
-    <addaction name="action_DisconnectGame"/>
     <addaction name="separator"/>
-   </widget>
-   <widget class="QMenu" name="action_help">
-    <property name="title">
-     <string>Nápověda</string>
-    </property>
    </widget>
    <addaction name="menuSoubor"/>
    <addaction name="menuHra"/>
-   <addaction name="action_help"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -431,14 +525,14 @@ padding-left: 20px;</string>
     <string>Otevřít</string>
    </property>
   </action>
-  <action name="action_Save">
+  <action name="action_SaveIcp">
    <property name="text">
-    <string>Uložit</string>
+    <string>Uložit ICP syntaxi</string>
    </property>
   </action>
-  <action name="action_SaveAs">
+  <action name="action_SaveXml">
    <property name="text">
-    <string>Uložit jako</string>
+    <string>Uložit XML</string>
    </property>
   </action>
   <action name="action_Close">
@@ -486,6 +580,16 @@ padding-left: 20px;</string>
   <action name="action_NewLocalGameVs">
    <property name="text">
     <string>Nová hra proti hráči</string>
+   </property>
+  </action>
+  <action name="action_OpenReplay">
+   <property name="text">
+    <string>Otevřít replay</string>
+   </property>
+  </action>
+  <action name="action_Help">
+   <property name="text">
+    <string>Nápověda</string>
    </property>
   </action>
  </widget>

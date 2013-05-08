@@ -58,3 +58,7 @@ void LightRock::becomeKing() {
     king = true;
     this->update();
 }
+
+bool LightRock::isKing() {
+    return king;
+}

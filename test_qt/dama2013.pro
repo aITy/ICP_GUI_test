@@ -8,17 +8,25 @@ HEADERS += mainwindow.h \
     gameboard.h \
     darkrock.h \
     canvas.h \
-    connectdialog.h
+    ../share/game.h \
+    connectdialog.h \
+    acceptdialog.h \
+    help.h
 SOURCES += main.cpp \
     mainwindow.cpp \
     lightrock.cpp \
     gameboard.cpp \
     darkrock.cpp \
     canvas.cpp \
-    connectdialog.cpp
+    ../share/game.cpp \
+    connectdialog.cpp \
+    acceptdialog.cpp \
+    help.cpp
 FORMS += mainwindow.ui \
     board.ui \
-    connectdialog.ui
+    connectdialog.ui \
+    acceptdialog.ui \
+    help.ui
 RESOURCES += recources.qrc
 OTHER_FILES += stop.png \
     rewind.png \

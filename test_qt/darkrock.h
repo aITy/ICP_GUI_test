@@ -16,6 +16,7 @@ public:
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget * widget);
     void becomeKing();
+    bool isKing();
     bool Pressed;
 private:
     QPointF pos;

@@ -14,12 +14,6 @@ ConnectDialog::ConnectDialog(QWidget *parent)
     LineEdit_Port->setValidator(portValidator);
 }
 
-void ConnectDialog::accept()
-{
-    if (send())
-        QDialog::accept();
-}
-
 bool ConnectDialog::send()
 {
     int port;
@@ -46,5 +40,13 @@ bool ConnectDialog::send()
     }
     dialogInfo << ipaddress << QString::number(port);
     return true;
+}
+
+
+void ConnectDialog::on_button_Send_clicked()
+{
+    if (send()) {
+        this->accept();
+    }
 }
 
