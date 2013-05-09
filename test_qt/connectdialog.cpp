@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #include "connectdialog.h"
 
 #include <QHostAddress>
@@ -5,14 +10,23 @@
 #include <QRegExp>
 #include <QRegExpValidator>
 
+/**
+  * connect dialog for connecting to remote game
+  */
+
 ConnectDialog::ConnectDialog(QWidget *parent)
     :QDialog(parent)
 {
     setupUi(this);
 
+    /** regexp validator for port validation */
     QRegExpValidator* portValidator = new QRegExpValidator(QRegExp("^\[0-9]{5}$"), this);
     LineEdit_Port->setValidator(portValidator);
 }
+
+/**
+ * function that validate and store content of dialog, when the send button is clicked
+ */
 
 bool ConnectDialog::send()
 {
@@ -39,10 +53,13 @@ bool ConnectDialog::send()
         return false;
     }
     dialogInfo << ipaddress << QString::number(port);
+    emit(dialogAccepted(dialogInfo));
     return true;
 }
 
-
+/**
+  * if send button is clicked, validation is performed and in case of need, the dialog is accepted
+  */
 void ConnectDialog::on_button_Send_clicked()
 {
     if (send()) {

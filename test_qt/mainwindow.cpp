@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -12,16 +17,11 @@ MainWindow::MainWindow(QWidget *parent) :
     myStatusBar->setStyleSheet("padding-bottom: 15px");
 
     server = new QTcpServer(this);
-    /** we will react on new connections in a user-loop */
     connect(server, SIGNAL(newConnection()), this, SLOT(gotConnection()));
-
-    /** listen on all interfaces; set "random" port (everything else has default values - e.g. max connections 30) */
-    if (! server->listen(QHostAddress::Any, 0)) {
-        setStatusMsg("ERR: TCP server not listening.");
-    }
-    else {
-        setStatusMsg(QString("server running on port ") + QString::number(server->serverPort()));
-    }
+    if (! server->listen(QHostAddress::Any, 0))
+        setStatusMsg("TCP server is not listening");
+    else
+        portLabel->setText(portLabel->text() + QString::number(server->serverPort()));
 }
 
 MainWindow* MainWindow::getInstance() {
@@ -49,7 +49,7 @@ void MainWindow::setupActions() {
         // connects
         connect(action_NewLocalGame, SIGNAL(triggered()), this, SLOT(createLocalCpu()));
         connect(action_NewLocalGameVs, SIGNAL(triggered()), this, SLOT(createLocalVs()));
-        //connect(action_NewNetGame, SIGNAL(triggered()), this, SLOT(createNetGame()));
+        connect(action_NewNetGame, SIGNAL(triggered()), this, SLOT(showNewNetDialog()));
         connect(action_Open, SIGNAL(triggered()), this, SLOT(openFromFile()));
         connect(action_OpenReplay, SIGNAL(triggered()), this, SLOT(openReplayFromFile()));
         connect(action_SaveIcp, SIGNAL(triggered()), this, SLOT(saveIcp()));
@@ -60,7 +60,7 @@ void MainWindow::setupActions() {
 /**
  * Create local game player vs player
  */
-void MainWindow::createLocalVs(){
+void MainWindow::createLocalVs() {
     Game *g = new Game(server);
     g->gameLocal();
 
@@ -79,19 +79,19 @@ void MainWindow::createLocalVs(){
 }
 
 /**
- * Create local game player vs cpu
+ * Create local game player vs cpu - not fully implented, removed
  */
 void MainWindow::createLocalCpu() {
-    Game *g = new Game(server);
+    //Game *g = new Game(server);
     //g->gameLocal(true, true);
 }
 
 /**
  * Create network game player vs player
  */
-void MainWindow::createNetGame() {
-    d = new ConnectDialog();
-    connect(d, SIGNAL(accepted()), this, SLOT(newNetworkGame()));
+void MainWindow::showNewNetDialog() {
+    ConnectDialog *d = new ConnectDialog();
+    connect(d, SIGNAL(dialogAccepted(QStringList)), this, SLOT(newNetworkGame(QStringList)));
     d->exec();
 
 }
@@ -250,6 +250,11 @@ void MainWindow::clearMoves() {
     lineEdit_Moves->clear();
 }
 
+/**
+ * when current the tab is changed, notification area is filled up with proper content
+ * if the game is replay, the replay tools are set
+ */
+
 void MainWindow::on_tabWidget_Games_currentChanged(int index)
 {
     if (index != -1) {
@@ -339,7 +344,7 @@ void MainWindow::on_spinBox_Delay_valueChanged(int)
 }
 
 /**
- * Enable replaying buttons
+ * Toggle replaying buttons if the game is replay
  * @param Instation of game
  */
 void MainWindow::toggleReplayButtons(Game * g) {
@@ -366,7 +371,7 @@ void MainWindow::help() {
  */
 
 void MainWindow::gotConnection() {
-    if (server->hasPendingConnections()) {
+    if (server->hasPendingConnections()) { 
         Game *g = new Game(server);
         GameBoard *b = new GameBoard(g);
         this->addGame(b);
@@ -382,9 +387,9 @@ void MainWindow::gotConnection() {
  * @param Player::color_t Player color
  */
 
-void MainWindow::gotInviteSlot(Player::color_t, QString) {
+void MainWindow::gotInviteSlot(Player::color_t color, QString str) {
     AcceptDialog * dialog = new AcceptDialog();
-    connect(dialog, SIGNAL(accepted()), this, SLOT(invited()));
+    //connect(dialog, SIGNAL(accepted()), this, SLOT(gotInviteSlot(color, str)));
     dialog->exec();
 }
 
@@ -400,17 +405,13 @@ void MainWindow::gotExitSlot() {
  * Create new network game
  */
 
-void MainWindow::newNetworkGame() {
+void MainWindow::newNetworkGame(QStringList list) {
     Game * g = new Game(server);
     QHostAddress addr;
-    addr.setAddress(d->dialogInfo.at(1));
+    addr.setAddress(list.at(0));
     connect(g, SIGNAL(gotInvite(Player::color_t, QString)), this, SLOT(gotInviteSlot(Player::color_t,QString)));
     connect(g, SIGNAL(gotExit()), this, SLOT(gotExitSlot()));
-    if ( !g->gameRemote(addr, d->dialogInfo.at(2).toInt(), Player::COLOR_WHITE)) {
+    if ( !g->gameRemote(addr, list.at(1).toInt(), Player::COLOR_WHITE)) {
         setStatusMsg(g->getError());
     }
-}
-
-void MainWindow::invited() {
-
 }

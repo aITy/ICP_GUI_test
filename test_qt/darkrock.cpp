@@ -1,16 +1,20 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
+
 #include "darkrock.h"
 //#include "rock.h"
 #include "ui_board.h"
 
 #include <QDebug>
 
-DarkRock::DarkRock()
-{
-    /*
-    this->resize(50, 50);
-    this->setStyleSheet("background-image: url(:/dark_piece.png)");
-    */
-    Pressed = false;
+/**
+ * the black men object
+ */
+
+DarkRock::DarkRock() {
     king = false;
     setFlag(ItemIsMovable);
 }
@@ -19,9 +23,16 @@ DarkRock::~DarkRock() {
 
 }
 
+/** return the bounding rect that is occupied by men
+  * @return return bounding rect that is occupied by men
+  */
 QRectF DarkRock::boundingRect() const {
     return QRectF(pos.x(), pos.y(), 50, 50);
 }
+
+/**
+ * reimplemented paint function to provide object repaint whenever the scene is updated
+ */
 
 void DarkRock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *){
     QRectF rect = boundingRect();
@@ -35,31 +46,36 @@ void DarkRock::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
     painter->drawImage(rect, img, src);
 }
 
-void DarkRock::mousePressEvent(QGraphicsSceneMouseEvent * event) {
-    Pressed = true;
-    update();
-    QGraphicsItem::mousePressEvent(event);
-}
-
-void DarkRock::mouseReleaseEvent(QGraphicsSceneMouseEvent * event) {
-    Pressed = false;
-    update();
-    QGraphicsItem::mouseReleaseEvent(event);
-}
-
+/**
+ * function thatreturn position of men
+ * @return returns men´s position
+ */
 
 QPointF DarkRock::getPosition() {
     return pos;
 }
 
+/**
+ * set the men´s position
+ */
+
 void DarkRock::setPosition(QPointF p) {
     pos = p;
 }
+
+/**
+ * function that set king flag and the rock is repainted after the scene is updated
+ */
 
 void DarkRock::becomeKing() {
     king = true;
     this->update();
 }
+
+/**
+ * function that return boolean reflecting whether the men is king or not
+ * @return return if the rock is king or not
+ */
 
 bool DarkRock::isKing() {
     return king;

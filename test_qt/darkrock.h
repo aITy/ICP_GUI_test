@@ -1,3 +1,9 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
+
 #ifndef DARKROCK_H
 #define DARKROCK_H
 
@@ -13,24 +19,17 @@ public:
     ~DarkRock();
     QPointF getPosition();
     void setPosition(QPointF p);
+    /** reimplemented bounding rect fuction
+     * @return bouding rectangular that with size of its image
+     */
+
     QRectF boundingRect() const;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget * widget);
     void becomeKing();
     bool isKing();
-    bool Pressed;
 private:
     QPointF pos;
     bool king;
-protected:
-    /*
-    void paintEvent(QPaintEvent *pe) {
-      QStyleOption o;
-      o.initFrom(this);
-      QPainter p(this);
-      style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
-    };*/
-    void mousePressEvent(QGraphicsSceneMouseEvent * event);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 };
 
 #endif // DARKROCK_H

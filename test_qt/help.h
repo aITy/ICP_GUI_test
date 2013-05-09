@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #ifndef HELP_H
 #define HELP_H
 

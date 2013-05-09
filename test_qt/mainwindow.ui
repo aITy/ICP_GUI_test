@@ -344,6 +344,19 @@ border: none;</string>
          </item>
         </layout>
        </widget>
+       <widget class="QLabel" name="portLabel">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>630</y>
+          <width>151</width>
+          <height>20</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>server running on port: </string>
+        </property>
+       </widget>
       </widget>
      </item>
      <item>

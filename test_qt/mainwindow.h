@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
@@ -33,8 +38,6 @@ public:
     int getGamesCount();
     void setStatusMsg(const char *);
     void setStatusMsg(QString);
-    void addMove(GameBoard* ,uint , uint , uint , uint , QString );
-    void addMove(GameBoard *, QPair<QString, int> , QPair<QString, int> , QString );
     void clearMoves();
     void toggleReplayButtons(Game *);
     void setLineEditText(QString str);
@@ -48,13 +51,14 @@ protected:
     void closeEvent(QCloseEvent *);
 
 private:
+    static MainWindow* instance;
     void setupActions();
 
     QList< QPair<GameBoard*, QPair< QPair<QPair<QString, int>, QPair<QString, int> >, QString> > > moves;
     QList< QPair< GameBoard*, QString> > moves_str;
     QList<GameBoard*> games_arr;
-    static MainWindow* instance;
     QTcpServer * server;
+    QList<int> ports;
     ConnectDialog *d;
 private slots:
     void gotConnection();
@@ -69,15 +73,15 @@ private slots:
     void on_tabWidget_Games_currentChanged(int index);
     void createLocalCpu();
     void createLocalVs();
-    void createNetGame();
+    void showNewNetDialog();
     void openFromFile();
     void openReplayFromFile();
     void help();
     bool saveIcp();
     bool saveXml();
     void on_tabWidget_Games_tabCloseRequested(int index);
-    void newNetworkGame();
-
+    void newNetworkGame(QStringList);
+signals:
+    void listen(void);
 };
-
 #endif // MAINWINDOW_H

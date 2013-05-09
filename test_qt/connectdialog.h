@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #ifndef CONNECTDIALOG_H
 #define CONNECTDIALOG_H
 
@@ -16,6 +21,8 @@ private:
 
 private slots:
     void on_button_Send_clicked();
+signals:
+    void dialogAccepted(QStringList);
 };
 
 

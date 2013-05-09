@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #include "canvas.h"
 #include "darkrock.h"
 #include "lightrock.h"
@@ -9,22 +14,19 @@ Canvas::Canvas(GameBoard *parent)
     :board(parent)
 {
     focused_item_pos = QPointF(0.0, 0.0);
-    last_move = "black";
 }
 
-void Canvas::mouseMoveEvent(QGraphicsSceneMouseEvent *event) {
-    this->update();
-}
-
-void Canvas::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-    this->update();
-}
+/**
+ * function that handle mouse click on scene and emit signals
+ * the first signal send coordinates of one move - source and destination
+ * the sencond signal send coordinates of one item that is focused to show possible moves
+ */
 
 void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
     qreal pos_x = event->scenePos().x();
     qreal pos_y = event->scenePos().y();
     QGraphicsItem * item = itemAt(pos_x, pos_y);
-    //LightRock * rock;
+    /** if there is an item, store item´s coordinates and emit it */
     if (item != 0) {
         QList<QPair<uint, uint> >focused_item_coords;
         QList<QPointF> list;
@@ -35,6 +37,9 @@ void Canvas::mouseReleaseEvent(QGraphicsSceneMouseEvent *event) {
         focused_item_pos = QPointF(item->scenePos());
         emit(showPossibleMoves(focused_item_coords.at(0).first, focused_item_coords.at(0).second));
     }
+    /** click is not the empty area
+      * if some item is already focused - move is detected and signal is emited with coordinates of move
+      */
     else {
         if (focused_item_pos != QPointF(0.0, 0.0)) {
 

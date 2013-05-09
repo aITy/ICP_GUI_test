@@ -1,3 +1,8 @@
+/**
+ * Authors: Jiri Navratil (xnavra36)
+ *          Jan Pacner (xpacne00)
+ */
+
 #ifndef CANVAS_H
 #define CANVAS_H
 
@@ -8,6 +13,9 @@
 
 class GameBoard;
 
+/**
+  * object wrapping graphics scene
+  */
 class Canvas : public QGraphicsScene
 {
     Q_OBJECT
@@ -16,16 +24,12 @@ public:
 private:
     GameBoard * board;
 protected:
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
-    void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
     QString mouse_position;
     QPointF focused_item_pos;
     QString focused_item_type;
-    QString last_move;
 signals:
-     Q_SIGNALS:
     /** emitted whenever a board has changed (thus redraw is needed) */
     void sceneUpdated(uint, uint, uint, uint);
     void showPossibleMoves(uint, uint);
